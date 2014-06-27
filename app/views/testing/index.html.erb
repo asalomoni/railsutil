@@ -12,6 +12,9 @@
       <%= form_tag ajax_call_balls_path, :id => 'ajax_call', data: {ajax_form: 'ajax_call_loading'}, :method => :get, remote: true do %>
           <%= submit_tag :submit %>
       <% end %>
+      <%= button_to 'Yo', ajax_call_balls_path, method: :get, remote: true %>
+      <div id="pagination_container"><%= ajax_will_paginate @labels_requests %></div>
+
     </div>
   </div>
 </div>

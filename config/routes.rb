@@ -7,6 +7,6 @@ Rails.application.routes.draw do
     end
   end
 
-  root 'testing#index'
+  root 'balls#index'
 
 end

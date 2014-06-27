@@ -42,4 +42,5 @@ gem "jquery-ui-rails"
 gem "jquery-turbolinks"
 gem "enumerize"
 gem "simple_form"
+gem "will_paginate"
 

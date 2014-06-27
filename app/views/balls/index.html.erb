@@ -1,29 +1,32 @@
-<h1>Listing balls</h1>
+<div data-standard-sh style="height:30px;background-color:orange;">
 
-<table>
-  <thead>
-    <tr>
-      <th>Ball type</th>
-      <th>Ball size</th>
-      <th>Ball weight</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+</div>
 
-  <tbody>
-    <% @balls.each do |ball| %>
-      <tr>
-        <td><%= ball.ball_type %></td>
-        <td><%= ball.ball_size %></td>
-        <td><%= ball.ball_weight %></td>
-        <td><%= link_to 'Show', ball %></td>
-        <td><%= link_to 'Edit', edit_ball_path(ball) %></td>
-        <td><%= link_to 'Destroy', ball, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div data-standard-dh style="background-color:yellow;">
+  <div data-standard-dh style="background-color:green;">
+    <div data-standard-sh style="height:10px;background-color:pink;"> </div>
+    <div id="blue" data-standard-dh style="background-color:blue;">
+      <div data-relative-h="#blue:60" data-relative-w="#blue:40" data-relative-p="50:50" style="background-color:purple;"> </div>
+      <%= text_field_tag(:balls_search, '', data: {autocomplete_source: ball_types_balls_path, autocomplete_params: '0:true', autocomplete_append_to: '#blue'}) %>
+      <%= text_field_tag(:date, '', data: {datepicker: true}) %>
+      <%= form_tag ajax_call_balls_path, :id => 'ajax_call', data: {ajax_form: 'ajax_call_loading'}, :method => :get, remote: true do %>
+          <%= submit_tag :submit %>
+      <% end %>
 
-<br>
+      <%= button_to 'Yo', ajax_call_balls_path, method: :get, remote: true, data: {ajax_button: 'ajax_call_loading'} %>
 
-<%= link_to 'New Ball', new_ball_path %>
+      <%= link_to 'Yo link', ajax_call_balls_path, method: :get, remote: true, data: {ajax_link: 'ajax_call_loading'} %>
+
+
+
+      <div id="pagination_container"><%= ajax_will_paginate @balls %></div>
+
+    </div>
+  </div>
+</div>
+
+<div data-standard-sh style="height:30px;background-color:red;">
+
+</div>
+
+<div id="loading_layer" data-loading-layer="ajax_call_loading" ></div>

@@ -5,6 +5,7 @@ class BallsController < ApplicationController
   # GET /balls.json
   def index
     @balls = Ball.all
+    @balls = @balls.paginate(:page => params[:page], :per_page => 5)
   end
 
   # GET /balls/1
@@ -71,6 +72,8 @@ class BallsController < ApplicationController
 
   def ajax_call
     sleep(4)
+    @balls = Ball.all
+    @balls = @balls.paginate(:page => params[:page], :per_page => 5)
 
     respond_to do |format|
       format.html

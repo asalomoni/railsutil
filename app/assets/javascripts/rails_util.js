@@ -14,6 +14,7 @@ var DATEPICKER = 'data-datepicker';
 
 var LOADING_LAYER = 'data-loading-layer';
 var AJAX_FORM = 'data-ajax-form';
+var AJAX_BUTTON = 'data-ajax-button';
 var AJAX_LINK = 'data-ajax-link';
 
 var TOP_PARENT = 'body';
@@ -310,6 +311,7 @@ function recordXHR(event, jqXHR) {
     }
     _current_xhr = jqXHR;
 
+    console.log(event);
     show_layer($(event.currentTarget));
 }
 
@@ -319,11 +321,29 @@ function show_layer(form) {
     layers.each(function() {
         $(this).show();
     });
+
+    layer_name = form.attr(AJAX_LINK);
+    layers = get_with_value(LOADING_LAYER, layer_name);
+    layers.each(function() {
+        $(this).show();
+    });
 }
 
 function set_ajax_loading_layers() {
     var forms = get(AJAX_FORM);
     forms.each(function() {
+        $(this).bind('ajax:beforeSend', recordXHR);
+    });
+
+    var buttons = get(AJAX_BUTTON);
+    buttons.each(function() {
+        var button_form = $(this).parents('form');
+        button_form.attr(AJAX_FORM, $(this).attr(AJAX_BUTTON));
+        button_form.bind('ajax:beforeSend', recordXHR);
+    });
+
+    var links = get(AJAX_LINK);
+    links.each(function() {
         $(this).bind('ajax:beforeSend', recordXHR);
     });
 }
