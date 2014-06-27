@@ -1,0 +1,29 @@
+<h1>Listing balls</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ball type</th>
+      <th>Ball size</th>
+      <th>Ball weight</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @balls.each do |ball| %>
+      <tr>
+        <td><%= ball.ball_type %></td>
+        <td><%= ball.ball_size %></td>
+        <td><%= ball.ball_weight %></td>
+        <td><%= link_to 'Show', ball %></td>
+        <td><%= link_to 'Edit', edit_ball_path(ball) %></td>
+        <td><%= link_to 'Destroy', ball, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ball', new_ball_path %>

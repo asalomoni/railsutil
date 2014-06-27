@@ -1,0 +1,23 @@
+<div data-standard-sh style="height:30px;background-color:orange;">
+
+</div>
+
+<div data-standard-dh style="background-color:yellow;">
+  <div data-standard-dh style="background-color:green;">
+    <div data-standard-sh style="height:10px;background-color:pink;"> </div>
+    <div id="blue" data-standard-dh style="background-color:blue;">
+      <div data-relative-h="#blue:60" data-relative-w="#blue:40" data-relative-p="50:50" style="background-color:purple;"> </div>
+      <%= text_field_tag(:balls_search, '', data: {autocomplete_source: ball_types_balls_path, autocomplete_params: '0:true', autocomplete_append_to: '#blue'}) %>
+      <%= text_field_tag(:date, '', data: {datepicker: true}) %>
+      <%= form_tag ajax_call_balls_path, :id => 'ajax_call', data: {ajax_form: 'ajax_call_loading'}, :method => :get, remote: true do %>
+          <%= submit_tag :submit %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div data-standard-sh style="height:30px;background-color:red;">
+
+</div>
+
+<div id="loading_layer" data-loading-layer="ajax_call_loading" ></div>

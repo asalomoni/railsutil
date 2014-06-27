@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ball type:</strong>
+  <%= @ball.ball_type %>
+</p>
+
+<p>
+  <strong>Ball size:</strong>
+  <%= @ball.ball_size %>
+</p>
+
+<p>
+  <strong>Ball weight:</strong>
+  <%= @ball.ball_weight %>
+</p>
+
+<%= link_to 'Edit', edit_ball_path(@ball) %> |
+<%= link_to 'Back', balls_path %>

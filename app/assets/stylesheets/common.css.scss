@@ -1,0 +1,42 @@
+@import "util";
+
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  cursor: default;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.ui-autocomplete {
+  width: 300px;
+  max-height: 300px;
+  overflow-y: auto;
+
+  .ui-menu-item {
+    width: 300px;
+
+    a {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+#loading_layer {
+  position:absolute;
+  left:0px;
+  top:0px;
+  z-index:1000;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(white, 0.6);
+}
