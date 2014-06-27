@@ -17,16 +17,17 @@ var AJAX_FORM = 'data-ajax-form';
 var AJAX_BUTTON = 'data-ajax-button';
 var AJAX_LINK = 'data-ajax-link';
 
+var PAGINATION = 'data-pagination';
+
 var TOP_PARENT = 'body';
 
 
 // MAIN
 // ================================
 $(document).on('page:change', function() {
-
     hide_all_loading_layers();
+    set_pagination_links();
     set_ajax_loading_layers();
-
     set_autocompletes();
     set_datepickers();
     resize();
@@ -301,6 +302,24 @@ function set_datepickers() {
 }
 
 
+// PAGINATION
+// ================================
+function set_pagination_links() {
+    var paginations = get(PAGINATION);
+    paginations.each(function() {
+        var links = $(this).find('a');
+        var layer_name = $(this).attr(PAGINATION);
+
+        links.click(function() {
+            var layers = get_with_value(LOADING_LAYER, layer_name);
+            layers.each(function() {
+                $(this).show();
+            });
+        });
+    });
+}
+
+
 // AJAX
 // ================================
 var _current_xhr = null;
@@ -311,18 +330,17 @@ function recordXHR(event, jqXHR) {
     }
     _current_xhr = jqXHR;
 
-    console.log(event);
     show_layer($(event.currentTarget));
 }
 
-function show_layer(form) {
-    var layer_name = form.attr(AJAX_FORM);
+function show_layer(element) {
+    var layer_name = element.attr(AJAX_FORM);
     var layers = get_with_value(LOADING_LAYER, layer_name);
     layers.each(function() {
         $(this).show();
     });
 
-    layer_name = form.attr(AJAX_LINK);
+    layer_name = element.attr(AJAX_LINK);
     layers = get_with_value(LOADING_LAYER, layer_name);
     layers.each(function() {
         $(this).show();
@@ -354,4 +372,9 @@ function hide_all_loading_layers() {
     layers.each(function() {
        $(this).hide();
     });
+}
+
+function after_ajax() {
+    hide_all_loading_layers();
+    set_pagination_links();
 }
