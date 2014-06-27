@@ -40,3 +40,17 @@ body {
   height: 100%;
   background-color: rgba(white, 0.6);
 }
+
+.pagination {
+  a {
+    color: white;
+
+    &:hover {
+      color: green;
+    }
+  }
+
+  .current {
+    color: gold !important;
+  }
+}

@@ -1,23 +1,27 @@
-var STANDARD_DYNAMIC_HEIGHT = 'data-standard-dh';
-var STANDARD_STATIC_HEIGHT = 'data-standard-sh';
+var LIB_TAG = 'ru';
 
-var RELATIVE_HEIGHT = 'data-relative-h';
-var RELATIVE_WIDTH = 'data-relative-w';
+var STANDARD_DYNAMIC_HEIGHT = 'data-' + LIB_TAG + '-standard-dh';
+var STANDARD_STATIC_HEIGHT = 'data-' + LIB_TAG + '-standard-sh';
 
-var RELATIVE_POSITION = 'data-relative-p';
+var RELATIVE_HEIGHT = 'data-' + LIB_TAG + '-relative-h';
+var RELATIVE_WIDTH = 'data-' + LIB_TAG + '-relative-w';
 
-var AUTOCOMPLETE = 'data-autocomplete-source';
-var AUTOCOMPLETE_APPEND_TO = 'data-autocomplete-append-to';
-var AUTOCOMPLETE_PARAMS = 'data-autocomplete-params';
+var RELATIVE_POSITION = 'data-' + LIB_TAG + '-relative-p';
 
-var DATEPICKER = 'data-datepicker';
+var AUTOCOMPLETE = 'data-' + LIB_TAG + '-autocomplete-source';
+var AUTOCOMPLETE_APPEND_TO = 'data-' + LIB_TAG + '-autocomplete-append-to';
+var AUTOCOMPLETE_PARAMS = 'data-' + LIB_TAG + '-autocomplete-params';
 
-var LOADING_LAYER = 'data-loading-layer';
-var AJAX_FORM = 'data-ajax-form';
-var AJAX_BUTTON = 'data-ajax-button';
-var AJAX_LINK = 'data-ajax-link';
+var DATEPICKER = 'data-' + LIB_TAG + '-datepicker';
 
-var PAGINATION = 'data-pagination';
+var LOADING_LAYER = 'data-' + LIB_TAG + '-loading-layer';
+var AJAX_FORM = 'data-' + LIB_TAG + '-ajax-form';
+var AJAX_BUTTON = 'data-' + LIB_TAG + '-ajax-button';
+var AJAX_LINK = 'data-' + LIB_TAG + '-ajax-link';
+
+var PAGINATION = 'data-' + LIB_TAG + '-pagination';
+
+var ALERT = 'data-' + LIB_TAG + '-alert';
 
 var TOP_PARENT = 'body';
 
@@ -28,6 +32,7 @@ $(document).on('page:change', function() {
     hide_all_loading_layers();
     set_pagination_links();
     set_ajax_loading_layers();
+    setAlerts();
     set_autocompletes();
     set_datepickers();
     resize();
@@ -376,5 +381,19 @@ function hide_all_loading_layers() {
 
 function after_ajax() {
     hide_all_loading_layers();
-    set_pagination_links();
+}
+
+
+// ALERT
+// ================================
+function setAlerts() {
+    var alerts = get(ALERT);
+
+    alerts.each(function() {
+        var alert = $(this);
+        alert.find('.close').click(function() {
+            alert.html('');
+            resize();
+        });
+    });
 }

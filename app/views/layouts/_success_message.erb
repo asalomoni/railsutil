@@ -1,0 +1,6 @@
+<% if message %>
+    <div class="alert alert-success">
+      <%= content_tag(:button, content_tag(:i, "", class: 'glyphicon glyphicon-remove'), :class => "close", "data-dismiss" => "alert")  %>
+      <p><%= message.html_safe %></p>
+    </div>
+<% end %>
