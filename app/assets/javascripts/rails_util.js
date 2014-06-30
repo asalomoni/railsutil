@@ -162,7 +162,7 @@ function standard_page_resize() {
     var top_parent_height = top_parent.innerHeight();
 
     var dh_elements = get(STANDARD_DYNAMIC_HEIGHT);
-    dh_elements = sort_DOM_elements(dh_elements);;
+    dh_elements = sort_DOM_elements(dh_elements);
 
     dh_elements.each(function(index) {
         var dh_element = dh_elements[index];
@@ -208,7 +208,7 @@ function standard_page_resize() {
 function set_autocompletes() {
     var autocompletes = get(AUTOCOMPLETE);
 
-    autocompletes.each(function(index) {
+    autocompletes.each(function() {
         var append_to = $(this).attr(AUTOCOMPLETE_APPEND_TO);
         var params = $(this).attr(AUTOCOMPLETE_PARAMS);
 
@@ -245,13 +245,13 @@ function set_autocompletes() {
 
         if (autocomplete_params['appendTo'] != null) {
             $(this).autocomplete({
-                source: $(this).data('autocomplete-source'),
+                source: $(this).data('ru-autocomplete-source'),
                 appendTo: autocomplete_params['appendTo'],
                 minLength: autocomplete_params['min_length']
             });
         } else {
             $(this).autocomplete({
-                source: $(this).data('autocomplete-source'),
+                source: $(this).data('ru-autocomplete-source'),
                 minLength: autocomplete_params['min_length']
             });
         }

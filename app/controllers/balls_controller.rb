@@ -71,7 +71,7 @@ class BallsController < ApplicationController
   end
 
   def ajax_call
-    sleep(4)
+    sleep(1)
     @balls = Ball.all
     @balls = @balls.paginate(:page => params[:page], :per_page => 5)
 

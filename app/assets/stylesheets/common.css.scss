@@ -51,6 +51,10 @@ body {
   }
 
   .current {
-    color: gold !important;
+    color: gold;
+  }
+
+  .disabled {
+    color: lightgrey;
   }
 }
