@@ -58,3 +58,26 @@ body {
     color: lightgrey;
   }
 }
+
+.menu {
+  width: 100px;
+  height: 90px;
+  background-color: lightblue;
+
+  .menu_button {
+    width: 100px;
+    height: 30px;
+    background-color: lightgreen;
+    cursor: pointer;
+    border: 1px solid white;
+  }
+}
+
+.selected {
+  background-color: red !important;
+}
+
+.hover {
+  background-color: pink !important;
+}
+
