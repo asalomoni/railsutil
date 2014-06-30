@@ -6,27 +6,30 @@
     <div data-ru-standard-sh data-ru-alert><%= render 'layouts/success_message', message: 'Yeah!' %></div>
     <div id="blue" data-ru-standard-dh style="background-color:blue;">
       <div data-ru-relative-h="#blue:60" data-ru-relative-w="#blue:40" data-ru-relative-p="50:50" style="background-color:purple;">
+
         <div class="menu" data-ru-menu="main_menu:selected:hover" >
           <div class="menu_button" data-ru-button="button_1" >BOTTONE 1</div>
-          <div id="bottone_2" class="menu_button" data-ru-button="button_2" >BOTTONE 2</div>
+          <div class="menu_button" data-ru-button="button_2" >BOTTONE 2</div>
           <div class="menu_button" data-ru-button="button_3" >BOTTONE 3</div>
         </div>
+
+        <br>
+
+        <%= text_field_tag(:balls_search, '', data: {ru_autocomplete_source: ball_types_balls_path, ru_autocomplete_params: '0:true', ru_autocomplete_append_to: '#blue'}) %>
+
+        <%= text_field_tag(:date, '', data: {ru_datepicker: true}) %>
+
+        <%= form_tag ajax_call_balls_path, :id => 'ajax_call', data: {ru_ajax_form: 'ajax_call_loading'}, :method => :get, remote: true do %>
+            <%= submit_tag :submit %>
+        <% end %>
+
+        <%= button_to 'Yo', ajax_call_balls_path, method: :get, remote: true, data: {ru_ajax_button: 'ajax_call_loading'} %>
+
+        <%= link_to 'Yo link', ajax_call_balls_path, method: :get, remote: true, data: {ru_ajax_link: 'ajax_call_loading'} %>
+
+        <div id="pagination_container" data-ru-pagination="ajax_call_loading" ><%= ajax_will_paginate @balls %></div>
+
       </div>
-
-      <%= text_field_tag(:balls_search, '', data: {ru_autocomplete_source: ball_types_balls_path, ru_autocomplete_params: '0:true', ru_autocomplete_append_to: '#blue'}) %>
-
-      <%= text_field_tag(:date, '', data: {ru_datepicker: true}) %>
-
-      <%= form_tag ajax_call_balls_path, :id => 'ajax_call', data: {ru_ajax_form: 'ajax_call_loading'}, :method => :get, remote: true do %>
-          <%= submit_tag :submit %>
-      <% end %>
-
-      <%= button_to 'Yo', ajax_call_balls_path, method: :get, remote: true, data: {ru_ajax_button: 'ajax_call_loading'} %>
-
-      <%= link_to 'Yo link', ajax_call_balls_path, method: :get, remote: true, data: {ru_ajax_link: 'ajax_call_loading'} %>
-
-      <div id="pagination_container" data-ru-pagination="ajax_call_loading" ><%= ajax_will_paginate @balls %></div>
-
     </div>
   </div>
 </div>

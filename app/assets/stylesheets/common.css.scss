@@ -13,6 +13,14 @@ body {
   height: 100%;
   margin: 0px;
   padding: 0px;
+
+  a {
+    color: white;
+
+    &:hover {
+      color: gold;
+    }
+  }
 }
 
 .ui-autocomplete {
@@ -46,7 +54,7 @@ body {
     color: white;
 
     &:hover {
-      color: green;
+      color: gold;
     }
   }
 
