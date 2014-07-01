@@ -1,7 +1,7 @@
 <div data-ru-standard-sh style="height:30px;background-color:orange;"></div>
 
 <div data-ru-standard-dh style="background-color:yellow;">
-  <div data-ru-standard-dh style="background-color:green;">
+  <div data-ru-standard-dh="70" style="background-color:green;">
     <div data-ru-standard-sh style="height:10px;background-color:pink;"> </div>
     <div data-ru-standard-sh data-ru-alert><%= render 'layouts/success_message', message: 'Yeah!' %></div>
     <div id="blue" data-ru-standard-dh style="background-color:blue;">
@@ -40,6 +40,7 @@
       </div>
     </div>
   </div>
+  <div data-ru-standard-dh="10" style="background-color:fuchsia;"></div>
 </div>
 
 <div data-ru-standard-sh style="height:30px;background-color:red;"></div>
@@ -49,4 +50,3 @@
 <%= javascript_tag do %>
     setMenuSelectedItem($('.menu'), $('.menu_button[data-ru-button=button_1]'));
 <% end %>
-

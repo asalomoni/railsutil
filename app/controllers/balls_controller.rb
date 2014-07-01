@@ -67,7 +67,6 @@ class BallsController < ApplicationController
     @balls = Ball.all
     options = @balls.map { |b| { label: b.ball_type, value: b.id } }
 
-    puts options
     render json: options
   end
 
