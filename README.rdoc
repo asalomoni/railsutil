@@ -24,9 +24,9 @@ Agli elementi possono essere assegnati i seguenti attributi:
 
 <i>data-ru-relative-h</i> e <i>data-ru-relative-w</i> permettono di definire rispettivamente altezza e larghezza di un elemento in proporzione ad altezza e larghezza di un altro elemento.
 
-<em>Esempio<em>
+<em>Esempio</em>
 
-<tt>data-ru-relative-h=“#header:30” => l’altezza dell’elemento sarà uguale al 30% dell’altezza dell’elemento #header</tt>
+<code>data-ru-relative-h=“#header:30” => l’altezza dell’elemento sarà uguale al 30% dell’altezza dell’elemento #header</code>
 
 === RELATIVE POSITION REFRESH
 Questo tipo di refresh può essere utilizzato per adattare la posizione di un elemento in modo proporzionale a quella del suo elemento genitore.
