@@ -1,9 +1,6 @@
-== RAILS UTIL DOCUMENTAZIONE
+== PAGE REFRESH
 
-
-=== PAGE REFRESH
-
-==== STANDARD PAGE REFRESH
+=== STANDARD PAGE REFRESH
 Questo tipo di refresh riguarda lo spazio verticale e quindi influenza solo l’altezza degli elementi.
 
 Affinché lo spazio verticale venga gestito correttamente, agli elementi possono essere assegnati i seguenti attributi:
@@ -12,59 +9,67 @@ Affinché lo spazio verticale venga gestito correttamente, agli elementi possono
 - data-ru-standard-dh / data-standard-dh=“PERCENTUALE”
 
 <i>data-ru-standard-sh</i> specifica che l’elemento ha un altezza statica.
+
 <i>data-ru-standard-dh</i> specifica che l’elemento ha un altezza dinamica. Se nessun valore viene specificato per quest’attributo, lo spazio rimanente all’interno dell’elemento parent ( spazio_rimanente = spazio_genitore - spazio_elementi_statici ) viene suddiviso equamente tra gli elementi dinamici. Può essere specificato un valore numerico rappresentante la percentuale di spazio rimanente da occupare. Se la somma dei valori degli elementi dinamici è > 100 lo spazio viene suddiviso equamente tra gli elementi.
+
 <tt>Es. data-ru-standard-dh=“30” => spazio_assegnato = (spazio_rimanente / 100) * 30</tt>
 
-RELATIVE SIZE REFRESH
+=== RELATIVE SIZE REFRESH
 Questo tipo di refresh può essere utilizzato per adattare le dimensioni di un elemento in modo proporzionale a quelle di un altro elemento.
+
 Agli elementi possono essere assegnati i seguenti attributi:
 
-	•	data-ru-relative-h=“ID_O_CLASSE:PERCENTUALE”
-	•	data-ru-relative-w=“ID_O_CLASSE:PERCENTUALE”
+- data-ru-relative-h=“ID_O_CLASSE:PERCENTUALE”
+- data-ru-relative-w=“ID_O_CLASSE:PERCENTUALE”
 
 <i>data-ru-relative-h</i> e <i>data-ru-relative-w</i> permettono di definire rispettivamente altezza e larghezza di un elemento in proporzione ad altezza e larghezza di un altro elemento.
+
 <tt>Es. data-ru-relative-h=“#header:30” => l’altezza dell’elemento sarà uguale al 30% dell’altezza dell’elemento #header</tt>
 
-RELATIVE POSITION REFRESH
+=== RELATIVE POSITION REFRESH
 Questo tipo di refresh può essere utilizzato per adattare la posizione di un elemento in modo proporzionale a quella del suo elemento genitore.
 Agli elementi può essere assegnato il seguente attributo:
 
-	•	data-ru-relative-p=“PERCENTUALE_LARGHEZZA:PERCENTUALE_ALTEZZA”
+- data-ru-relative-p=“PERCENTUALE_LARGHEZZA:PERCENTUALE_ALTEZZA”
 
 <i>data-ru-relative-p</i> permette di definire la posizione di un elemento ( le coordinate x e y rappresentanti il centro dell’elemento) relativamente allo spazio occupato dall’elemento genitore.
+
 <tt>Es. data-ru-relative-p=“30:50” => la coordinata x corrisponderà con il 30% della larghezza dell’elemento genitore a partire da sinistra, la coordinata y corrisponderà con il 50% dell’altezza dell’elemento genitore a partire dall’alto</tt>
 
-
-AUTOCOMPLETE
+== AUTOCOMPLETE
 Per usufruire della funzione autocomplete ad un input field possono essere assegnati i seguenti attributi:
 
-	•	data-ru-autocomplete-source=“PATH”
-	•	data-ru-autocomplete-append-to=“ID_O_CLASSE”
-	•	data-ru-autocomplete-params=“MIN_LENGTH:FOCUS”
+- data-ru-autocomplete-source=“PATH”
+- data-ru-autocomplete-append-to=“ID_O_CLASSE”
+- data-ru-autocomplete-params=“MIN_LENGTH:FOCUS”
 
 <i>data-ru-autocomplete-source</i> permette di definire il path dell’azione che effettua la ricerca per l’autocomplete.
+
 <i>data-ru-autocomplete-append-to</i> permette di definire l’elemento su cui verrà appeso il menu contenete i suggerimenti dell’autocomplete.
+
 <i>data-ru-autocomplete-params</i> permette di definire due parametri: MIN_LENGTH (numerico) la lunghezza minima del testo digitato affinché la ricerca dei suggerimenti venga eseguita; FOCUS (booleano) se la ricerca dei suggerimenti viene eseguita o meno quando l’input field riceve il focus.
 
-
-DATEPICKER
+== DATEPICKER
 Per abilitare il datepicker su un input field assegnare l’attributo <i>data-ru-datepicker</i>.
 
-
-LOADING LAYER
+== LOADING LAYER
 Per abilitare un layer di caricamento durante l’attesa di una chiamata ajax possono essere utilizzati i seguenti attributi:
 
-	•	data-ru-loading-layer=“LAYER_NAME”
-	•	data-ru-ajax-form=“LAYER_NAME”
-	•	data-ru-ajax-button=“LAYER_NAME”
-	•	data-ru-ajax-link=“LAYER_NAME”
-	•	data-pagination=“LAYER_NAME”
+- data-ru-loading-layer=“LAYER_NAME”
+- data-ru-ajax-form=“LAYER_NAME”
+- data-ru-ajax-button=“LAYER_NAME”
+- data-ru-ajax-link=“LAYER_NAME”
+- data-pagination=“LAYER_NAME”
 
 <i>data-ru-loading-layer</i> viene assegnato all’elemento rappresentante il layer di caricamento, il valore dell’attributo definisce il nome dell’layer.
+
 <i>data-ru-ajax-form</i> viene assegnato ai form che in seguito a una chiamata ajax intendono attivare un layer di caricamento, il valore dell’attributo definisce il layer che verrà attivato.
+
 <i>data-ru-ajax-button</i> viene assegnato ai bottoni che in seguito a una chiamata ajax intendono attivare un layer di caricamento, il valore dell’attributo definisce il layer che verrà attivato.
+
 <i>data-ru-ajax-link</i> viene assegnato ai link che in seguito a una chiamata ajax intendono attivare un layer di caricamento, il valore dell’attributo definisce il layer che verrà attivato.
+
 <i>data-pagination</i> viene assegnato agli elementi contenitori della paginazione will_paginate che in seguito al caricamento di una nuova pagina di risultati intendono attivare un layer di caricamento, il valore dell’attributo definisce il layer che verrà attivato.
 
-ALERT
+== ALERT
 Per far si che un alert di bootstrap si chiuda correttamente provocando il refresh della pagina assegnare l’attributo <i>data-ru-alert</i>.
