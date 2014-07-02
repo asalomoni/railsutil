@@ -8,7 +8,7 @@ Affinché lo spazio verticale venga gestito correttamente, agli elementi possono
 - data-ru-standard-sh
 - data-ru-standard-dh / data-standard-dh=“PERCENTUALE”
 
-<em>data-ru-standard-sh</em> specifica che l’elemento ha un altezza statica.
+<b>data-ru-standard-sh</b> specifica che l’elemento ha un altezza statica.
 
 <i>data-ru-standard-dh</i> specifica che l’elemento ha un altezza dinamica. Se nessun valore viene specificato per quest’attributo, lo spazio rimanente all’interno dell’elemento parent ( spazio_rimanente = spazio_genitore - spazio_elementi_statici ) viene suddiviso equamente tra gli elementi dinamici. Può essere specificato un valore numerico rappresentante la percentuale di spazio rimanente da occupare. Se la somma dei valori degli elementi dinamici è > 100 lo spazio viene suddiviso equamente tra gli elementi.
 
@@ -24,7 +24,8 @@ Agli elementi possono essere assegnati i seguenti attributi:
 
 <i>data-ru-relative-h</i> e <i>data-ru-relative-w</i> permettono di definire rispettivamente altezza e larghezza di un elemento in proporzione ad altezza e larghezza di un altro elemento.
 
-<tt>Es. data-ru-relative-h=“#header:30” => l’altezza dell’elemento sarà uguale al 30% dell’altezza dell’elemento #header</tt>
+Esempio
+<tt>data-ru-relative-h=“#header:30” => l’altezza dell’elemento sarà uguale al 30% dell’altezza dell’elemento #header</tt>
 
 === RELATIVE POSITION REFRESH
 Questo tipo di refresh può essere utilizzato per adattare la posizione di un elemento in modo proporzionale a quella del suo elemento genitore.
