@@ -10,7 +10,7 @@ Affinché lo spazio verticale venga gestito correttamente, agli elementi possono
 
 <b>data-ru-standard-sh</b> specifica che l’elemento ha un altezza statica.
 
-<b>data-ru-standard-dh</b> specifica che l’elemento ha un altezza dinamica. Se nessun valore viene specificato per quest’attributo, lo spazio rimanente all’interno dell’elemento parent ( spazio_rimanente = spazio_genitore - spazio_elementi_statici ) viene suddiviso equamente tra gli elementi dinamici. Può essere specificato un valore numerico rappresentante la percentuale di spazio rimanente da occupare. Se la somma dei valori degli elementi dinamici è > 100 lo spazio viene suddiviso equamente tra gli elementi.
+<b>data-ru-standard-dh</b> specifica che l’elemento ha un altezza dinamica. Se nessun valore viene specificato per quest’attributo, lo spazio rimanente all’interno dell’elemento parent (spazio_rimanente = spazio_genitore - spazio_elementi_statici) viene suddiviso equamente tra gli elementi dinamici. Può essere specificato un valore numerico rappresentante la percentuale di spazio rimanente da occupare. Se la somma dei valori degli elementi dinamici è > 100 lo spazio viene suddiviso equamente tra gli elementi.
 
 <tt><em>Esempio:</em> data-ru-standard-dh=“30” => spazio_assegnato = (spazio_rimanente / 100) * 30</tt>
 
@@ -50,7 +50,7 @@ Per usufruire della funzione autocomplete ad un input field possono essere asseg
 <b>data-ru-autocomplete-params</b> permette di definire due parametri: MIN_LENGTH (numerico) la lunghezza minima del testo digitato affinché la ricerca dei suggerimenti venga eseguita; FOCUS (booleano) se la ricerca dei suggerimenti viene eseguita o meno quando l’input field riceve il focus.
 
 == DATEPICKER
-Per abilitare il datepicker su un input field assegnare l’attributo <i>data-ru-datepicker</i>.
+Per abilitare il datepicker su un input field assegnare l’attributo <b>data-ru-datepicker</b>.
 
 == LOADING LAYER
 Per abilitare un layer di caricamento durante l’attesa di una chiamata ajax possono essere utilizzati i seguenti attributi:
@@ -72,4 +72,14 @@ Per abilitare un layer di caricamento durante l’attesa di una chiamata ajax po
 <b>data-pagination</b> viene assegnato agli elementi contenitori della paginazione will_paginate che in seguito al caricamento di una nuova pagina di risultati intendono attivare un layer di caricamento, il valore dell’attributo definisce il layer che verrà attivato.
 
 == ALERT
-Per far si che un alert di bootstrap si chiuda correttamente provocando il refresh della pagina assegnare l’attributo <i>data-ru-alert</i>.
+Per far si che un alert di bootstrap si chiuda correttamente provocando il refresh della pagina assegnare l’attributo <b>data-ru-alert</b>.
+
+== MENU
+Per la creazione di menu con elementi selezionabili ed effetto hover possono essere utilizzati i seguenti attributi:
+
+- data-ru-menu="NOME_MENU:NOME_CLASSE_SELEZIONATO:NOME_CLASSE_HOVER"
+- data-ru-button="NOME_BOTTONE"
+
+<b>data-ru-menu</b> viene assegnato all’elemento contenente i bottoni, permette di definire tre parametri: NOME_MENU (stringa); NOME_CLASSE_SELEZIONATO (stringa) il nome della classe che applica lo stile al bottone selezionato; NOME_CLASSE_HOVER (stringa) il nome della classe che applica lo stile al bottone su cui il puntatore sta transitando.
+
+<b>data-ru-button</b> viene assegnato agli elementi rappresentanti i bottoni.
