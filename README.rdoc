@@ -8,9 +8,9 @@ Questo tipo di refresh riguarda lo spazio verticale e quindi influenza solo l’
 
 Affinché lo spazio verticale venga gestito correttamente, agli elementi possono essere assegnati i seguenti attributi:
 
-*data-ru-standard-sh
+- data-ru-standard-sh
 
-*data-ru-standard-dh / data-standard-dh=“PERCENTUALE”
+- data-ru-standard-dh / data-standard-dh=“PERCENTUALE”
 
 <i>data-ru-standard-sh</i> specifica che l’elemento ha un altezza statica.
 <i>data-ru-standard-dh</i> specifica che l’elemento ha un altezza dinamica. Se nessun valore viene specificato per quest’attributo, lo spazio rimanente all’interno dell’elemento parent ( spazio_rimanente = spazio_genitore - spazio_elementi_statici ) viene suddiviso equamente tra gli elementi dinamici. Può essere specificato un valore numerico rappresentante la percentuale di spazio rimanente da occupare. Se la somma dei valori degli elementi dinamici è > 100 lo spazio viene suddiviso equamente tra gli elementi.
