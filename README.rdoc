@@ -26,7 +26,12 @@ Agli elementi possono essere assegnati i seguenti attributi:
 
 <em>Esempio</em>
 
----data-ru-relative-h=“#header:30” => l’altezza dell’elemento sarà uguale al 30% dell’altezza dell’elemento #header
+<div style="background-color:grey;">
+
+data-ru-relative-h=“#header:30” => l’altezza dell’elemento sarà uguale al 30% dell’altezza dell’elemento #header
+
+</div>
+
 
 === RELATIVE POSITION REFRESH
 Questo tipo di refresh può essere utilizzato per adattare la posizione di un elemento in modo proporzionale a quella del suo elemento genitore.
