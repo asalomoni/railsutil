@@ -43,17 +43,17 @@ $(document).on('page:change', function() {
     set_autocompletes();
     set_datepickers();
 
-    resize();
+    refresh();
 
     $(window).resize(function() {
-        resize();
+        refresh();
     });
 });
 
-function resize() {
-    standard_page_resize();
-    relative_page_resize();
-    relative_position_resize();
+function refresh() {
+    standard_page_refresh();
+    relative_size_refresh();
+    relative_position_refresh();
 }
 
 
@@ -102,9 +102,9 @@ function log(message) {
 }
 
 
-// RESIZE
+// REFRESH
 // ================================
-function relative_page_resize() {
+function relative_size_refresh() {
     var rh_elements = get(RELATIVE_HEIGHT);
     rh_elements.each(function() {
         var value = rh_elements.attr(RELATIVE_HEIGHT);
@@ -138,7 +138,7 @@ function relative_page_resize() {
     });
 }
 
-function relative_position_resize() {
+function relative_position_refresh() {
     var rp_elements = get(RELATIVE_POSITION);
     rp_elements.each(function() {
         var value = rp_elements.attr(RELATIVE_POSITION);
@@ -174,7 +174,7 @@ function relative_position_resize() {
     });
 }
 
-function standard_page_resize() {
+function standard_page_refresh() {
     var top_parent = $(TOP_PARENT);
 
     var parents = [];
@@ -271,245 +271,245 @@ function standard_page_resize() {
 
 // AUTOCOMPLETE
 // ================================
-    function set_autocompletes() {
-        var autocompletes = get(AUTOCOMPLETE);
+function set_autocompletes() {
+    var autocompletes = get(AUTOCOMPLETE);
 
-        autocompletes.each(function() {
-            var append_to = $(this).attr(AUTOCOMPLETE_APPEND_TO);
-            var params = $(this).attr(AUTOCOMPLETE_PARAMS);
+    autocompletes.each(function() {
+        var append_to = $(this).attr(AUTOCOMPLETE_APPEND_TO);
+        var params = $(this).attr(AUTOCOMPLETE_PARAMS);
 
-            var autocomplete_params = {};
-            autocomplete_params['min_length'] = 0;
-            autocomplete_params['appendTo'] = null;
-            autocomplete_params['focus'] = true;
+        var autocomplete_params = {};
+        autocomplete_params['min_length'] = 0;
+        autocomplete_params['appendTo'] = null;
+        autocomplete_params['focus'] = true;
 
-            if (append_to != null && typeof append_to !== 'undefined') {
-                if ($(append_to).length <= 0) {
-                    log("Append to element doesn't exist");
+        if (append_to != null && typeof append_to !== 'undefined') {
+            if ($(append_to).length <= 0) {
+                log("Append to element doesn't exist");
+                return;
+            }
+            autocomplete_params['appendTo'] = append_to;
+        }
+
+        if (params != null && typeof params !== 'undefined') {
+            var split = params.split(SEPARATOR);
+            if (split[0] != 'null') {
+                autocomplete_params['min_length'] = parseInt(split[0]);
+                if (isNaN(autocomplete_params['min_length'])) {
+                    log("Min length is not a number");
                     return;
                 }
-                autocomplete_params['appendTo'] = append_to;
             }
-
-            if (params != null && typeof params !== 'undefined') {
-                var split = params.split(SEPARATOR);
-                if (split[0] != 'null') {
-                    autocomplete_params['min_length'] = parseInt(split[0]);
-                    if (isNaN(autocomplete_params['min_length'])) {
-                        log("Min length is not a number");
-                        return;
-                    }
+            if (split[1] != 'null') {
+                if (!(split[1] == 'true' || split[1] == 'false')) {
+                    log("Focus is not a boolean");
+                    return;
                 }
-                if (split[1] != 'null') {
-                    if (!(split[1] == 'true' || split[1] == 'false')) {
-                        log("Focus is not a boolean");
-                        return;
-                    }
-                    autocomplete_params['focus'] = Boolean(split[1]);
-                }
+                autocomplete_params['focus'] = Boolean(split[1]);
             }
+        }
 
-            if (autocomplete_params['appendTo'] != null) {
-                $(this).autocomplete({
-                    source: $(this).data(LIB_TAG + '-autocomplete-source'),
-                    appendTo: autocomplete_params['appendTo'],
-                    minLength: autocomplete_params['min_length']
-                });
-            } else {
-                $(this).autocomplete({
-                    source: $(this).data(LIB_TAG + '-autocomplete-source'),
-                    minLength: autocomplete_params['min_length']
-                });
-            }
+        if (autocomplete_params['appendTo'] != null) {
+            $(this).autocomplete({
+                source: $(this).data(LIB_TAG + '-autocomplete-source'),
+                appendTo: autocomplete_params['appendTo'],
+                minLength: autocomplete_params['min_length']
+            });
+        } else {
+            $(this).autocomplete({
+                source: $(this).data(LIB_TAG + '-autocomplete-source'),
+                minLength: autocomplete_params['min_length']
+            });
+        }
 
-            if (autocomplete_params['focus']) {
-                $(this).focus(function(){
-                    $(this).autocomplete( "search", $(this).val() );
-                });
-            }
-        });
-    }
+        if (autocomplete_params['focus']) {
+            $(this).focus(function(){
+                $(this).autocomplete( "search", $(this).val() );
+            });
+        }
+    });
+}
 
 
 // DATEPICKER
 // ================================
-    window.defaults = {
-        datepicker: {
-            todayBtn: "linked",
-            language: "it",
-            todayHighlight: true,
-            autoclose:true
-        }
+window.defaults = {
+    datepicker: {
+        todayBtn: "linked",
+        language: "it",
+        todayHighlight: true,
+        autoclose:true
     }
+}
 
-    $.datepicker.regional['it'] = {
-        clearText: 'Svuota', clearStatus: 'Annulla',
-        closeText: 'Chiudi', closeStatus: 'Chiudere senza modificare',
-        prevText: '&#x3c;Prec', prevStatus: 'Mese precedente',
-        prevBigText: '&#x3c;&#x3c;', prevBigStatus: 'Mostra l\'anno precedente',
-        nextText: 'Succ&#x3e;', nextStatus: 'Mese successivo',
-        nextBigText: '&#x3e;&#x3e;', nextBigStatus: 'Mostra l\'anno successivo',
-        currentText: 'Oggi', currentStatus: 'Mese corrente',
-        monthNames: ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
-            'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
-        monthNamesShort: ['Gen','Feb','Mar','Apr','Mag','Giu',
-            'Lug','Ago','Set','Ott','Nov','Dic'],
-        monthStatus: 'Seleziona un altro mese', yearStatus: 'Seleziona un altro anno',
-        weekHeader: 'Sm', weekStatus: 'Settimana dell\'anno',
-        dayNames: ['Domenica','Luned&#236','Marted&#236','Mercoled&#236','Gioved&#236','Venerd&#236','Sabato'],
-        dayNamesShort: ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'],
-        dayNamesMin: ['Do','Lu','Ma','Me','Gio','Ve','Sa'],
-        dayStatus: 'Usa DD come primo giorno della settimana', dateStatus: 'Seleziona D, M d',
-        dateFormat: 'dd/mm/yy', firstDay: 1,
-        initStatus: 'Scegliere una data', isRTL: false
-    };
+$.datepicker.regional['it'] = {
+    clearText: 'Svuota', clearStatus: 'Annulla',
+    closeText: 'Chiudi', closeStatus: 'Chiudere senza modificare',
+    prevText: '&#x3c;Prec', prevStatus: 'Mese precedente',
+    prevBigText: '&#x3c;&#x3c;', prevBigStatus: 'Mostra l\'anno precedente',
+    nextText: 'Succ&#x3e;', nextStatus: 'Mese successivo',
+    nextBigText: '&#x3e;&#x3e;', nextBigStatus: 'Mostra l\'anno successivo',
+    currentText: 'Oggi', currentStatus: 'Mese corrente',
+    monthNames: ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
+        'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
+    monthNamesShort: ['Gen','Feb','Mar','Apr','Mag','Giu',
+        'Lug','Ago','Set','Ott','Nov','Dic'],
+    monthStatus: 'Seleziona un altro mese', yearStatus: 'Seleziona un altro anno',
+    weekHeader: 'Sm', weekStatus: 'Settimana dell\'anno',
+    dayNames: ['Domenica','Luned&#236','Marted&#236','Mercoled&#236','Gioved&#236','Venerd&#236','Sabato'],
+    dayNamesShort: ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'],
+    dayNamesMin: ['Do','Lu','Ma','Me','Gio','Ve','Sa'],
+    dayStatus: 'Usa DD come primo giorno della settimana', dateStatus: 'Seleziona D, M d',
+    dateFormat: 'dd/mm/yy', firstDay: 1,
+    initStatus: 'Scegliere una data', isRTL: false
+};
 
-    function set_datepickers() {
-        var datepickers = get(DATEPICKER);
+function set_datepickers() {
+    var datepickers = get(DATEPICKER);
 
-        datepickers.each(function(index) {
-            $(this).datepicker($.datepicker.regional['it']);
-        });
-    }
+    datepickers.each(function(index) {
+        $(this).datepicker($.datepicker.regional['it']);
+    });
+}
 
 
 // PAGINATION
 // ================================
-    function set_pagination_links() {
-        var paginations = get(PAGINATION);
-        paginations.each(function() {
-            var links = $(this).find('a');
-            var layer_name = $(this).attr(PAGINATION);
+function set_pagination_links() {
+    var paginations = get(PAGINATION);
+    paginations.each(function() {
+        var links = $(this).find('a');
+        var layer_name = $(this).attr(PAGINATION);
 
-            links.click(function() {
-                var layers = get_with_value(LOADING_LAYER, layer_name);
-                layers.each(function() {
-                    $(this).show();
-                });
+        links.click(function() {
+            var layers = get_with_value(LOADING_LAYER, layer_name);
+            layers.each(function() {
+                $(this).show();
             });
         });
-    }
+    });
+}
 
 
 // AJAX
 // ================================
-    var _current_xhr = null;
+var _current_xhr = null;
 
-    function recordXHR(event, jqXHR) {
-        if (_current_xhr != null) {
-            _current_xhr.abort();
-        }
-        _current_xhr = jqXHR;
-
-        show_layer($(event.currentTarget));
+function recordXHR(event, jqXHR) {
+    if (_current_xhr != null) {
+        _current_xhr.abort();
     }
+    _current_xhr = jqXHR;
 
-    function show_layer(element) {
-        var layer_name = element.attr(AJAX_FORM);
-        var layers = get_with_value(LOADING_LAYER, layer_name);
-        layers.each(function() {
-            $(this).show();
-        });
+    show_layer($(event.currentTarget));
+}
 
-        layer_name = element.attr(AJAX_LINK);
-        layers = get_with_value(LOADING_LAYER, layer_name);
-        layers.each(function() {
-            $(this).show();
-        });
-    }
+function show_layer(element) {
+    var layer_name = element.attr(AJAX_FORM);
+    var layers = get_with_value(LOADING_LAYER, layer_name);
+    layers.each(function() {
+        $(this).show();
+    });
 
-    function set_ajax_loading_layers() {
-        var forms = get(AJAX_FORM);
-        forms.each(function() {
-            $(this).bind('ajax:beforeSend', recordXHR);
-        });
+    layer_name = element.attr(AJAX_LINK);
+    layers = get_with_value(LOADING_LAYER, layer_name);
+    layers.each(function() {
+        $(this).show();
+    });
+}
 
-        var buttons = get(AJAX_BUTTON);
-        buttons.each(function() {
-            var button_form = $(this).parents('form');
-            button_form.attr(AJAX_FORM, $(this).attr(AJAX_BUTTON));
-            button_form.bind('ajax:beforeSend', recordXHR);
-        });
+function set_ajax_loading_layers() {
+    var forms = get(AJAX_FORM);
+    forms.each(function() {
+        $(this).bind('ajax:beforeSend', recordXHR);
+    });
 
-        var links = get(AJAX_LINK);
-        links.each(function() {
-            $(this).bind('ajax:beforeSend', recordXHR);
-        });
-    }
+    var buttons = get(AJAX_BUTTON);
+    buttons.each(function() {
+        var button_form = $(this).parents('form');
+        button_form.attr(AJAX_FORM, $(this).attr(AJAX_BUTTON));
+        button_form.bind('ajax:beforeSend', recordXHR);
+    });
 
-    function hide_all_loading_layers() {
-        var layers = get(LOADING_LAYER);
+    var links = get(AJAX_LINK);
+    links.each(function() {
+        $(this).bind('ajax:beforeSend', recordXHR);
+    });
+}
 
-        layers.each(function() {
-            $(this).hide();
-        });
-    }
+function hide_all_loading_layers() {
+    var layers = get(LOADING_LAYER);
 
-    function after_ajax() {
-        hide_all_loading_layers();
-    }
+    layers.each(function() {
+        $(this).hide();
+    });
+}
+
+function after_ajax() {
+    hide_all_loading_layers();
+}
 
 
 // ALERT
 // ================================
-    function setAlerts() {
-        var alerts = get(ALERT);
+function setAlerts() {
+    var alerts = get(ALERT);
 
-        alerts.each(function() {
-            var alert = $(this);
-            alert.find('.close').click(function() {
-                alert.html('');
-                resize();
-            });
+    alerts.each(function() {
+        var alert = $(this);
+        alert.find('.close').click(function() {
+            alert.html('');
+            refresh();
         });
-    }
+    });
+}
 
 
 // MENU
 // ================================
-    function setMenus() {
-        var menus = get(MENU);
+function setMenus() {
+    var menus = get(MENU);
 
-        menus.each(function() {
-            var menu = $(this);
-            var split = menu.attr(MENU).split(SEPARATOR);
-            var menu_name = split[0];
-            var hover_class = split[2];
-
-            var menu_buttons = get_from_parent(BUTTON, menu);
-            menu_buttons.each(function() {
-                $(this).click(function() {
-                    deselectAllMenuItems(menu);
-                    setMenuSelectedItem(menu, $(this));
-                });
-            });
-
-            menu_buttons.mouseenter(function() {
-                var button_name = $(this).attr(BUTTON);
-                if (button_name != _menu_selected_item[menu_name]) {
-                    $(this).addClass(hover_class);
-                }
-            });
-
-            menu_buttons.mouseleave(function() {
-                $(this).removeClass(hover_class)
-            });
-        });
-    }
-
-    function deselectAllMenuItems(menu) {
-        var split = menu.attr(MENU).split(SEPARATOR);
-        var selected_class = split[1];
-        var hover_class = split[2];
-        var menu_buttons = get_from_parent(BUTTON, menu);
-        menu_buttons.removeClass(selected_class);
-        menu_buttons.removeClass(hover_class);
-    }
-
-    function setMenuSelectedItem(menu, item) {
+    menus.each(function() {
+        var menu = $(this);
         var split = menu.attr(MENU).split(SEPARATOR);
         var menu_name = split[0];
-        var selected_class = split[1];
-        _menu_selected_item[menu_name] = item.attr(BUTTON);
-        item.addClass(selected_class);
-    }
+        var hover_class = split[2];
+
+        var menu_buttons = get_from_parent(BUTTON, menu);
+        menu_buttons.each(function() {
+            $(this).click(function() {
+                deselectAllMenuItems(menu);
+                setMenuSelectedItem(menu, $(this));
+            });
+        });
+
+        menu_buttons.mouseenter(function() {
+            var button_name = $(this).attr(BUTTON);
+            if (button_name != _menu_selected_item[menu_name]) {
+                $(this).addClass(hover_class);
+            }
+        });
+
+        menu_buttons.mouseleave(function() {
+            $(this).removeClass(hover_class)
+        });
+    });
+}
+
+function deselectAllMenuItems(menu) {
+    var split = menu.attr(MENU).split(SEPARATOR);
+    var selected_class = split[1];
+    var hover_class = split[2];
+    var menu_buttons = get_from_parent(BUTTON, menu);
+    menu_buttons.removeClass(selected_class);
+    menu_buttons.removeClass(hover_class);
+}
+
+function setMenuSelectedItem(menu, item) {
+    var split = menu.attr(MENU).split(SEPARATOR);
+    var menu_name = split[0];
+    var selected_class = split[1];
+    _menu_selected_item[menu_name] = item.attr(BUTTON);
+    item.addClass(selected_class);
+}
