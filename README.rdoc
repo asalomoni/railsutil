@@ -1,7 +1,7 @@
 == RAILS UTIL DOCUMENTAZIONE
 
 
-<h1>PAGE REFRESH</h1>
+=== PAGE REFRESH
 
 <h2>STANDARD PAGE REFRESH</h2>
 Questo tipo di refresh riguarda lo spazio verticale e quindi influenza solo l’altezza degli elementi.
