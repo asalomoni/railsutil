@@ -1,8 +1,12 @@
 var LIB_TAG = 'ru';
 var SEPARATOR = ':';
 
+var STANDARD_ROW = 'data-' + LIB_TAG + '-standard-row';
+var STANDARD_COLUMN = 'data-' + LIB_TAG + '-standard-column';
 var STANDARD_DYNAMIC_HEIGHT = 'data-' + LIB_TAG + '-standard-dh';
 var STANDARD_STATIC_HEIGHT = 'data-' + LIB_TAG + '-standard-sh';
+var STANDARD_DYNAMIC_WIDTH = 'data-' + LIB_TAG + '-standard-dw';
+var STANDARD_STATIC_WIDTH = 'data-' + LIB_TAG + '-standard-sw';
 
 var RELATIVE_HEIGHT = 'data-' + LIB_TAG + '-relative-h';
 var RELATIVE_WIDTH = 'data-' + LIB_TAG + '-relative-w';
@@ -52,6 +56,7 @@ $(document).on('page:change', function() {
 
 function refresh() {
     standard_page_refresh();
+
     relative_size_refresh();
     relative_position_refresh();
 }
@@ -175,6 +180,11 @@ function relative_position_refresh() {
 }
 
 function standard_page_refresh() {
+    standard_page_refresh_vertical();
+    standard_page_refresh_horizontal();
+}
+
+function standard_page_refresh_vertical() {
     var top_parent = $(TOP_PARENT);
 
     var parents = [];
@@ -207,64 +217,189 @@ function standard_page_refresh() {
             var parent = parents[index];
             var parent_height = parent.innerHeight();
 
-            var dynamic_height = 0;
-            var static_height = 0;
-
-            var static_children_array = static_children[index];
-            $.each(static_children_array, function(index) {
-                var children = static_children_array[index];
-                static_height += children.outerHeight(true);
-            });
-
-            dynamic_height = parent_height - static_height;
-
-            var dynamic_children_values = [];
-            var dynamic_children_array = dynamic_children[index];
-            var total_percent = 0;
-            $.each(dynamic_children_array, function(index) {
-                var children = dynamic_children_array[index];
-                var percent = parseInt(children.attr(STANDARD_DYNAMIC_HEIGHT));
-                if (percent != null && typeof percent != 'undefined' && !isNaN(percent))  {
-                    dynamic_children_values[index] = percent;
-                    total_percent += percent;
-                }
-            });
-
-            var effective_height = 0;
-            if (total_percent > 100 || total_percent == 0) {
-                var height = Math.floor(dynamic_height / dynamic_children_array.length);
-                effective_height = height * dynamic_children_array.length;
+            var attr = parent.attr(STANDARD_ROW);
+            if (typeof attr !== typeof undefined && attr !== false) {
+                var dynamic_children_array = dynamic_children[index];
                 $.each(dynamic_children_array, function(index) {
-                    dynamic_children_values[index] = height;
+                    var children = dynamic_children_array[index];
+                    var percent = parseInt(children.attr(STANDARD_DYNAMIC_HEIGHT));
+                    if (percent != null && typeof percent != 'undefined' && !isNaN(percent))  {
+                        var height = (parent_height / 100) * percent;
+                        children.outerHeight(height, true)
+                    } else {
+                        children.outerHeight(parent_height, true)
+                    }
                 });
             } else {
-                $.each(dynamic_children_array, function(index) {
-                    var height = Math.floor((dynamic_height / 100) * dynamic_children_values[index]);
-                    effective_height += height;
+                var dynamic_height = 0;
+                var static_height = 0;
 
-                    dynamic_children_values[index] = height;
+                var static_children_array = static_children[index];
+                $.each(static_children_array, function(index) {
+                    var children = static_children_array[index];
+                    static_height += children.outerHeight(true);
                 });
-            }
 
-            if (total_percent >= 100) {
-                var delta = dynamic_height - effective_height;
-                if (delta > 0) {
-                    while (delta > 0) {
-                        for (var i = 0; i < dynamic_children_values.length; i++) {
-                            dynamic_children_values[i] = dynamic_children_values[i] + 1;
-                            delta --;
-                            if (delta <= 0) {
-                                break;
+                dynamic_height = parent_height - static_height;
+
+                var dynamic_children_values = [];
+                var dynamic_children_array = dynamic_children[index];
+                var total_percent = 0;
+                $.each(dynamic_children_array, function(index) {
+                    var children = dynamic_children_array[index];
+                    var percent = parseInt(children.attr(STANDARD_DYNAMIC_HEIGHT));
+                    if (percent != null && typeof percent != 'undefined' && !isNaN(percent))  {
+                        dynamic_children_values[index] = percent;
+                        total_percent += percent;
+                    }
+                });
+
+                var effective_height = 0;
+                if (total_percent > 100 || total_percent == 0) {
+                    var height = Math.floor(dynamic_height / dynamic_children_array.length);
+                    effective_height = height * dynamic_children_array.length;
+                    $.each(dynamic_children_array, function(index) {
+                        dynamic_children_values[index] = height;
+                    });
+                } else {
+                    $.each(dynamic_children_array, function(index) {
+                        var height = Math.floor((dynamic_height / 100) * dynamic_children_values[index]);
+                        effective_height += height;
+
+                        dynamic_children_values[index] = height;
+                    });
+                }
+
+                if (total_percent >= 100) {
+                    var delta = dynamic_height - effective_height;
+                    if (delta > 0) {
+                        while (delta > 0) {
+                            for (var i = 0; i < dynamic_children_values.length; i++) {
+                                dynamic_children_values[i] = dynamic_children_values[i] + 1;
+                                delta --;
+                                if (delta <= 0) {
+                                    break;
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            $.each(dynamic_children_array, function(index) {
-                var children = dynamic_children_array[index];
-                children.outerHeight(dynamic_children_values[index], true);
-            });
+                $.each(dynamic_children_array, function(index) {
+                    var children = dynamic_children_array[index];
+                    children.outerHeight(dynamic_children_values[index], true);
+                });
+            }
+        }
+    });
+}
+
+function standard_page_refresh_horizontal() {
+    var top_parent = $(TOP_PARENT);
+
+    var parents = [];
+    parents.push(top_parent);
+    var static_children = [];
+    var dynamic_children = [];
+    for (var i = 0; i < parents.length; i++) {
+        var parent = parents[i];
+
+        var parent_static_children =  parent.children('*[' + STANDARD_STATIC_WIDTH + ']');
+        var parent_dynamic_children =  parent.children('*[' + STANDARD_DYNAMIC_WIDTH + ']');
+
+        var static_children_array = [];
+        parent_static_children.each(function() {
+            static_children_array.push($(this));
+            parents.push($(this));
+        });
+        static_children.push(static_children_array);
+
+        var dynamic_children_array = [];
+        parent_dynamic_children.each(function() {
+            dynamic_children_array.push($(this));
+            parents.push($(this));
+        });
+        dynamic_children.push(dynamic_children_array);
+    }
+
+    $.each(parents, function(index) {
+        if (dynamic_children[index].length > 0) {
+            var parent = parents[index];
+            var parent_width = parent.innerWidth();
+
+            var attr = parent.attr(STANDARD_COLUMN);
+            if (typeof attr !== typeof undefined && attr !== false) {
+                var dynamic_children_array = dynamic_children[index];
+                $.each(dynamic_children_array, function(index) {
+                    var children = dynamic_children_array[index];
+                    var percent = parseInt(children.attr(STANDARD_DYNAMIC_WIDTH));
+                    if (percent != null && typeof percent != 'undefined' && !isNaN(percent))  {
+                        var width = (parent_width / 100) * percent;
+                        children.outerWidth(width, true)
+                    } else {
+                        children.outerWidth(parent_width, true)
+                    }
+                });
+            } else {
+                var dynamic_width = 0;
+                var static_width = 0;
+
+                var static_children_array = static_children[index];
+                $.each(static_children_array, function(index) {
+                    var children = static_children_array[index];
+                    static_width += children.outerWidth(true);
+                });
+
+                dynamic_width = parent_width - static_width;
+
+                var dynamic_children_values = [];
+                var dynamic_children_array = dynamic_children[index];
+                var total_percent = 0;
+                $.each(dynamic_children_array, function(index) {
+                    var children = dynamic_children_array[index];
+                    var percent = parseInt(children.attr(STANDARD_DYNAMIC_WIDTH));
+                    if (percent != null && typeof percent != 'undefined' && !isNaN(percent))  {
+                        dynamic_children_values[index] = percent;
+                        total_percent += percent;
+                    }
+                });
+
+                var effective_width = 0;
+                if (total_percent > 100 || total_percent == 0) {
+                    var width = Math.floor(dynamic_width / dynamic_children_array.length);
+                    effective_width = width * dynamic_children_array.length;
+                    $.each(dynamic_children_array, function(index) {
+                        dynamic_children_values[index] = width;
+                    });
+                } else {
+                    $.each(dynamic_children_array, function(index) {
+                        var width = Math.floor((dynamic_width / 100) * dynamic_children_values[index]);
+                        effective_width += width;
+
+                        dynamic_children_values[index] = width;
+                    });
+                }
+
+                if (total_percent >= 100) {
+                    var delta = dynamic_width - effective_width;
+                    if (delta > 0) {
+                        while (delta > 0) {
+                            for (var i = 0; i < dynamic_children_values.length; i++) {
+                                dynamic_children_values[i] = dynamic_children_values[i] + 1;
+                                delta --;
+                                if (delta <= 0) {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                $.each(dynamic_children_array, function(index) {
+                    var children = dynamic_children_array[index];
+                    children.outerWidth(dynamic_children_values[index], true);
+                });
+            }
         }
     });
 }
